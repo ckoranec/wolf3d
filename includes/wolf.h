@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/01 00:58:25 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/01 04:08:52 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "keycode_mac.h"
 # include "mlx.h"
 # include <math.h>
-# include <limits.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <pthread.h>

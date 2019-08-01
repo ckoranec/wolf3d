@@ -2,5 +2,6 @@
 
 void						mlx_draw(t_mlx *mlx)
 {
-
+    if (mlx)
+        ;
 }

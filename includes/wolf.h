@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/01 00:12:05 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/01 00:40:34 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <pthread.h>
+# include <stdbool.h>
 
 # define WIN_WIDTH 640
 # define WIN_HEIGHT 480
@@ -30,12 +31,12 @@
 
 pthread_mutex_t				g_lock;
 
-typedef struct						s_map
+typedef struct				s_map
 {
 	int	width;
 	int	height;
-	char **matrix;
-};
+	char *matrix;
+}							t_map;
 
 typedef struct				s_vect_2
 {
@@ -66,10 +67,12 @@ typedef struct				s_mlx
 	void					*window;
 	t_image					*image;
 	t_cam					*cam;
+	t_map					map;
 }							t_mlx;
 
 void						mlx_draw(t_mlx *mlx);
 void						mlxdel(t_mlx *mlx);
+int							fail(int ret, char *note);
 void						start(t_mlx *mlx);
 t_image						*new_image(t_mlx *mlx);
 t_image						*del_image(t_mlx *mlx, t_image *img);
@@ -78,5 +81,7 @@ void						image_set_pixel(t_image *image, int x,
 								int y, int color);
 void						cam_reset(t_mlx *mlx);
 void						cam_scale(t_mlx *mlx, int x, int y, int arg);
+int							get_map(int ac, char **av, t_mlx *mlx);
+int							get_textures(t_mlx *mlx);
 
 #endif

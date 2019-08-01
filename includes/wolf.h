@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/01 00:03:00 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/01 00:12:05 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,13 @@
 # define MENU_WIDTH 100
 # define FT_MIN(A, B) (((A) < (B)) ? (A) : (B))
 
-typedef struct s_triangle	t_triangle;
-typedef struct s_map		t_map;
 pthread_mutex_t				g_lock;
 
-struct						s_map
+typedef struct						s_map
 {
 	int	width;
 	int	height;
-	int **matrix;
+	char **matrix;
 };
 
 typedef struct				s_vect_2
@@ -72,6 +70,7 @@ typedef struct				s_mlx
 
 void						mlx_draw(t_mlx *mlx);
 void						mlxdel(t_mlx *mlx);
+void						start(t_mlx *mlx);
 t_image						*new_image(t_mlx *mlx);
 t_image						*del_image(t_mlx *mlx, t_image *img);
 void						clear_image(t_image *image);

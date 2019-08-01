@@ -9,7 +9,7 @@ int    get_textures(t_mlx *mlx)
 
 static int	map_allot(t_map *map)
 {
-	if (!(map->matrix = ft_memalloc(sizeof(char) * map->height * map->width + 1)))
+	if (!(map->matrix = ft_memalloc(sizeof(int) * map->height * map->width)))
 		return (fail(-1, "error: can't malloc vox"));
 	return (1);
 }
@@ -47,10 +47,8 @@ static void	splint(t_map *map, int row, char **strs)
 	i = -1;
 	while (++i < map->width)
 	{
-		(map->matrix)[map->width * row + i] = ft_atoi(strs[i]);
-		free(strs[i]);
+		*((map->matrix) + (map->width * row + i)) = ft_atoi(strs[i]);
 	}
-	free(strs);
 }
 
 void		map_destroy(t_map *map)

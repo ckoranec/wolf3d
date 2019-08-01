@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fractol
+NAME = wolf3d
 
 SRC_DIR = ./src/
 SRC_FILES = main.c image.c window.c input.c map.c draw.c

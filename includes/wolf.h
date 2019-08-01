@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/01 00:40:34 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/01 00:58:25 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct				s_map
 {
 	int	width;
 	int	height;
-	char *matrix;
+	int	*matrix;
 }							t_map;
 
 typedef struct				s_vect_2

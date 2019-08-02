@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/01 04:08:52 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/01 22:41:25 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,18 @@ typedef struct				s_image
 	int						endian;
 }							t_image;
 
-typedef struct				s_cam
+typedef struct				s_player
 {
-	double					offsetx;
-	double					offsety;
-	double					x;
-	double					y;
-}							t_cam;
+	int						x;
+	int						y;
+}							t_player;
 
 typedef struct				s_mlx
 {
 	void					*mlx;
 	void					*window;
 	t_image					*image;
-	t_cam					*cam;
+	t_player				player;
 	t_map					map;
 }							t_mlx;
 
@@ -82,5 +80,5 @@ void						cam_reset(t_mlx *mlx);
 void						cam_scale(t_mlx *mlx, int x, int y, int arg);
 int							get_map(int ac, char **av, t_mlx *mlx);
 int							get_textures(t_mlx *mlx);
-
+int							init_it(char *title, t_mlx *mlx);
 #endif

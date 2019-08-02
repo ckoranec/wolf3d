@@ -10,7 +10,7 @@ int main(int ac, char **av)
 {
     t_mlx   mlx;
 
-    if (!(get_map(ac, av, &mlx) || get_textures(&mlx)))
+    if (get_map(ac, av, &mlx) || get_textures(&mlx) || init_it("wolf3d", &mlx))
         return(0);
     for (int y = 0; y < mlx.map.width; y++)
     {

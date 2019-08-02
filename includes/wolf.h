@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/02 02:22:50 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/02 03:08:09 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <pthread.h>
 # include <stdbool.h>
 
-# define WIN_WIDTH 10
-# define WIN_HEIGHT 10
+# define WIN_WIDTH 640
+# define WIN_HEIGHT 480
 # define MENU_WIDTH 100
 # define FT_MIN(A, B) (((A) < (B)) ? (A) : (B))
 
@@ -70,8 +70,8 @@ typedef struct				s_player
 {
 	double					x;
 	double					y;
-	double					dir_x;
-	double					dir_y;
+	int						dir_x;
+	int						dir_y;
 	double					camplane_x;
 	double					camplane_y;
 }							t_player;
@@ -81,8 +81,8 @@ typedef struct				s_mlx
 	void					*mlx;
 	void					*window;
 	t_image					*image;
-	t_player				player;
-	t_map					map;
+	t_player				*player;
+	t_map					*map;
 }							t_mlx;
 
 void						mlx_draw(t_mlx *mlx);

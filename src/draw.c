@@ -44,25 +44,30 @@ void						draw_it(t_mlx *mlx)
 	
 	for(int x = 0; x < WIN_WIDTH; x++)
     {
-		player = &mlx->player;
-		double mapx = mlx->player.x;
-		double mapy = mlx->player.y;
-    	double planex = mlx->player.camplane_x;
-		double planey = mlx->player.camplane_y;
+		player = mlx->player;
+		double playerx = 6.0f;
+		double playery = 10.0f;
+		printf("pdir x %d pdir y %d", mlx->player->dir_x, mlx->player->dir_y);
+		printf("testing map w %d h %d f_w %f f_h %f\n", mlx->map->width, mlx->map->height, (double)mlx->map->width, (double)mlx->map->height);
+		double mapx = 6.0f;
+		double mapy = 10.0f;
+    	double planex = 0;
+		double planey = 0.66f;
 
-		camera = 2 * x / (double)mlx->map.width - 1;
-		ray.dirx = mlx->player.dir_x + planex * camera;
-		ray.diry = mlx->player.dir_y + planey * camera;
+		camera = 2 * x / (double)mlx->map->width - 1;
+		ray.dirx = mlx->player->dir_x + planex * camera;
+		ray.diry = mlx->player->dir_y + planey * camera;
 
 		ray.deltax = abs(1/ray.dirx);
-		ray.deltay = abs(1/ray.diry);    
+		ray.deltay = abs(1/ray.diry);
 		ray.stepx = (ray.dirx < 0 ? -1 : 1);
 		ray.stepy = (ray.diry < 0 ? -1 : 1);
-		ray.sidex = ray.dirx < 0 ? (player->x - mapx) * ray.deltax : (mapx + 1.0f - player->x) * ray.deltax; //(r->x < 0 ? p->x - t.mx : t.mx - p->x + 1) * t.dx;
-		ray.sidey = ray.diry < 0 ? (player->y - mapy) * ray.deltay : (mapy + 1.0f - player->y) * ray.deltay; //working on it(r->y < 0 ? p->y - t.my : t.my - p->y + 1) * t.dy;
+		ray.sidex = ray.dirx < 0 ? (playerx - mapx) * ray.deltax : (mapx + 1.0f - playerx) * ray.deltax; //(r->x < 0 ? p->x - t.mx : t.mx - p->x + 1) * t.dx;
+		ray.sidey = ray.diry < 0 ? (playery - mapy) * ray.deltay : (mapy + 1.0f - playery) * ray.deltay; //working on it(r->y < 0 ? p->y - t.my : t.my - p->y + 1) * t.dy;
 		int hit = 0;
 		int side;
 		printf("stepx %d stepy %d\n", ray.stepx, ray.stepy);
+		printf("mapx %f mapy %f\n", mapx, mapy);
 		printf("looking\n");
 		while (hit == 0)
 		{
@@ -79,24 +84,26 @@ void						draw_it(t_mlx *mlx)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			printf("checking %f %f\n", floor(mapx), floor(mapy));
-			if (floor(mapx) >= 0 && floor(mapx) < (double)mlx->map.width && floor(mapy) >= 0 && floor(mapy) < (double)mlx->map.height)
+			printf("checking %f %f\n", mapx, mapy);
+			if (mapx >= 0 && mapx < (double)mlx->map->width && mapy >= 0 && mapy < (double)mlx->map->height)
 			{
 				printf("ayy\n");
-				hit = *(mlx->map.matrix + (int)(mlx->map.width * (int)floor(mapy) + (int)floor(mapx)));
+				hit = *(mlx->map->matrix + (mlx->map->width * (int)mapy + (int)mapx));
 				printf("hit %d\n", hit);
 			}
 			if (hit != 0)
 			{
 				printf("hit! %f %f\n", mapx, mapy);
 			}
+			if (mapx < 0 || mapx >= (double)mlx->map->width || mapy < 0 || mapy >= (double)mlx->map->height)
+				break ;
 		}
 		printf("done looking\n");
 		double prepwalldist;
 		if (side == 0)
-			prepwalldist = (mapx - mlx->player.x + (1 - ray.stepx) / 2) / ray.dirx;
+			prepwalldist = (mapx - playerx + (1 - ray.stepx) / 2) / ray.dirx;
 		else
-			prepwalldist = (mapy - mlx->player.y + (1 - ray.stepy) / 2) / ray.diry;
+			prepwalldist = (mapy - playery + (1 - ray.stepy) / 2) / ray.diry;
 		draw_column(x, mlx, prepwalldist);
 	}
 }

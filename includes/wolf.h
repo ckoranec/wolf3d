@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/01 22:41:25 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/02 02:22:50 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <pthread.h>
 # include <stdbool.h>
 
-# define WIN_WIDTH 640
-# define WIN_HEIGHT 480
+# define WIN_WIDTH 10
+# define WIN_HEIGHT 10
 # define MENU_WIDTH 100
 # define FT_MIN(A, B) (((A) < (B)) ? (A) : (B))
 
@@ -36,6 +36,20 @@ typedef struct				s_map
 	int	height;
 	int	*matrix;
 }							t_map;
+
+typedef struct				s_ray
+{
+	int						dirx;
+	int						diry;
+	int							stepx;
+	int							stepy;
+	double						sidex;
+	double						sidey;
+	double						mx;
+	double						my;
+	double						deltax;
+	double						deltay;
+}							t_ray;
 
 typedef struct				s_vect_2
 {
@@ -54,8 +68,12 @@ typedef struct				s_image
 
 typedef struct				s_player
 {
-	int						x;
-	int						y;
+	double					x;
+	double					y;
+	double					dir_x;
+	double					dir_y;
+	double					camplane_x;
+	double					camplane_y;
 }							t_player;
 
 typedef struct				s_mlx

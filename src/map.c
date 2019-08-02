@@ -58,8 +58,8 @@ static int	splint(t_mlx *mlx, int row, char **strs)
 			fail = true;
 		if (*((map->matrix) + (map->width * row + i)) == 0 && !mlx->player.x && !mlx->player.y)
 		{
-			mlx->player.x = i;
-			mlx->player.y = row;
+			mlx->player.x = i + 0.5f;
+			mlx->player.y = row + 0.5f;
 		}
 		free(strs[i]);
 	}
@@ -87,6 +87,8 @@ int    get_map(int ac, char **av, t_mlx *mlx)
 	if (0 > (fd = open(av[1], O_RDONLY)))
 		return (fail(1, "error: can't open file"));
 	i = 0;
+	ft_memset(&mlx->player, 0, sizeof(t_player));
+	ft_printf("map width: %d map height: %d\n", mlx->map.width, mlx->map.height);
 	while (i < mlx->map.height)
 	{
 		get_next_line(fd, &line);
@@ -100,5 +102,6 @@ int    get_map(int ac, char **av, t_mlx *mlx)
 	}
 	if (!mlx->player.x && !mlx->player.y)
 		return (fail(1, "starting pos not found"));
+	printf("player: x(%f) y(%f)\n", mlx->player.x, mlx->player.y);
 	return (0);
 }

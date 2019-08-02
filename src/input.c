@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/01 21:51:29 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/02 01:33:16 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ static int			fdf_key_hook(int key, t_mlx *mlx)
 
 void				start(t_mlx *mlx)
 {
+	mlx->player.camplane_x = 0;
+	mlx->player.camplane_y = 0.66;
+	mlx->player.dir_x = -1;
+	mlx->player.dir_y = 0;
 	mlx_draw(mlx);
 	mlx_hook(mlx->window, 2, 5, fdf_key_hook, mlx);
 	mlx_loop(mlx->mlx);

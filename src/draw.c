@@ -2,7 +2,7 @@
 
 int						colors(int i)
 {
-	int rgb[5] = { RED, GREEN, BLUE, LAVENDER, MIDNIGHT_BLUE};
+	int rgb[5] = { RED, GREEN, GRAY, YELLOW, MIDNIGHT_BLUE};
 	return (rgb[i % 5]);
 }
 
@@ -30,7 +30,7 @@ void		dda(t_mlx *mlx, int start, int end, int x, int type)
 void						draw_column(int x, t_mlx *mlx, double dist, int type)
 {
 	printf("dist %f\n", dist);
-	int lineHeight = (int)(WIN_HEIGHT / dist);
+	int lineHeight = (int)(WIN_HEIGHT / (dist * 10));
 
 	int drawStart = -lineHeight / 2 + WIN_HEIGHT / 2;
     if(drawStart < 0)

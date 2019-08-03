@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/02 03:08:09 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/03 01:25:03 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct				s_map
 
 typedef struct				s_ray
 {
-	int						dirx;
-	int						diry;
+	double						dirx;
+	double						diry;
 	int							stepx;
 	int							stepy;
 	double						sidex;
@@ -70,8 +70,8 @@ typedef struct				s_player
 {
 	double					x;
 	double					y;
-	int						dir_x;
-	int						dir_y;
+	double					dir_x;
+	double					dir_y;
 	double					camplane_x;
 	double					camplane_y;
 }							t_player;
@@ -81,8 +81,8 @@ typedef struct				s_mlx
 	void					*mlx;
 	void					*window;
 	t_image					*image;
-	t_player				*player;
-	t_map					*map;
+	t_player				player;
+	t_map					map;
 }							t_mlx;
 
 void						mlx_draw(t_mlx *mlx);

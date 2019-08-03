@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/03 01:38:00 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/03 03:17:29 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void			rotate_player(bool left, t_mlx *mlx)
 	if (left)
 	{
 		double oldDirX = player->dir_x;
-		player->dir_x = player->dir_x * cos(/* rotspeed */0.5f) - player->dir_y * sin(/* rotspeed*/0.5f);
-		player->dir_y = oldDirX * sin(0.5f) + player->dir_y * cos(0.5f);
+		player->dir_x = player->dir_x * cos(player->rotspeed) - player->dir_y * sin(player->rotspeed);
+		player->dir_y = oldDirX * sin(player->rotspeed) + player->dir_y * cos(player->rotspeed);
 		double oldPlaneX = player->camplane_x;
-		player->camplane_x = player->camplane_x * cos(0.5f) - player->camplane_y * sin(0.5f);
-		player->camplane_y = oldPlaneX * sin(0.5f) + player->camplane_y * cos(0.5f);
+		player->camplane_x = player->camplane_x * cos(player->rotspeed) - player->camplane_y * sin(player->rotspeed);
+		player->camplane_y = oldPlaneX * sin(player->rotspeed) + player->camplane_y * cos(player->rotspeed);
 	}
 }
 
@@ -47,10 +47,10 @@ static int			fdf_key_hook(int key, t_mlx *mlx)
 void				start(t_mlx *mlx)
 {
 	mlx->player.camplane_x = 0;
-	mlx->player.camplane_y = 0.66;
-	mlx->player.dir_x = -1;
+	mlx->player.camplane_y = 0.66f;
+	mlx->player.dir_x = -1.0f;
 	mlx->player.dir_y = 0;
-	ft_printf("playerx %f player7 %f\n", mlx->player.x, mlx->player.y);
+	mlx->player.rotspeed = 0.2f;
 	mlx_draw(mlx);
 	mlx_hook(mlx->window, 2, 5, fdf_key_hook, mlx);
 	mlx_loop(mlx->mlx);

@@ -38,7 +38,10 @@ void						draw_column(int x, t_mlx *mlx, double dist, int type)
     int drawEnd = lineHeight / 2 + WIN_HEIGHT / 2;
     if(drawEnd >= WIN_HEIGHT)
 		drawEnd = WIN_HEIGHT - 1;
-	dda(mlx, drawStart, drawEnd, x, type);
+	if (dist == 0 || dist == 0)
+		dda(mlx, 0, WIN_HEIGHT, x, type);
+	else
+		dda(mlx, drawStart, drawEnd, x, type);
 }
 
 void						draw_it(t_mlx *mlx)
@@ -51,21 +54,21 @@ void						draw_it(t_mlx *mlx)
 	for(int x = 0; x < WIN_WIDTH; x++)
     {
 		player = &mlx->player;
-		double playerx = 6.0f;
-		double playery = 10.0f;
+		double playerx = player->x;
+		double playery = player->y;
 		printf("pdir x %f pdir y %f", mlx->player.dir_x, mlx->player.dir_y);
 		printf("testing map w %d h %d f_w %f f_h %f\n", mlx->map.width, mlx->map.height, (double)mlx->map.width, (double)mlx->map.height);
-		double mapx = 6.0f;
-		double mapy = 10.0f;
-    	double planex = 0;
-		double planey = 0.66f;
+		double mapx = playerx;
+		double mapy = playery;
+    	double planex = player->camplane_x;
+		double planey = player->camplane_y;
 
 		camera = 2 * x / (double)mlx->map.width - 1;
 		ray.dirx = mlx->player.dir_x + planex * camera;
 		ray.diry = mlx->player.dir_y + planey * camera;
 
-		ray.deltax = ray.dirx == 0 ? 0 : fabs(1/ray.dirx);
-		ray.deltay = ray.diry == 0 ? 0 : fabs(1/ray.diry);
+		ray.deltax = /*ray.dirx == 0 ? 0 : */fabs(1/ray.dirx);
+		ray.deltay = /*ray.diry == 0 ? 0 : */fabs(1/ray.diry);
 		ray.stepx = (ray.dirx < 0 ? -1 : 1);
 		ray.stepy = (ray.diry < 0 ? -1 : 1);
 		ray.sidex = ray.dirx < 0 ? (playerx - mapx) * ray.deltax : (mapx + 1.0f - playerx) * ray.deltax; //(r->x < 0 ? p->x - t.mx : t.mx - p->x + 1) * t.dx;
@@ -99,12 +102,12 @@ void						draw_it(t_mlx *mlx)
 			}
 			if (hit != 0)
 			{
-				printf("hit! %f %f\n", mapx, mapy);
-				break ;
+				printf("hit! %d at %f %f\n", hit, mapx, mapy);
 			}
-			if (mapx < 0 || mapx >= (double)mlx->map.width || mapy < 0 || mapy >= (double)mlx->map.height)
-				break ;
+			//if (mapx < 0 || mapx >= (double)mlx->map.width || mapy < 0 || mapy >= (double)mlx->map.height)
+			//	break ;
 		}
+		printf("player: x(%f) y(%f)\n", mlx->player.x, mlx->player.y);
 		printf("done looking\n");
 		double prepwalldist;
 		if (side == 0)

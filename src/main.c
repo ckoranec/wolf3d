@@ -14,10 +14,9 @@ int main(int ac, char **av)
     ft_memset(&mlx.player, 0, sizeof(t_mlx));
     ft_memset(&mlx.map, 0, sizeof(t_mlx));
 
-    
-    if (!get_map(ac, av, &mlx))// || !get_textures(&mlx) || !init_it("wolf3d", &mlx))
-        return(0);
     if (!init_it("wolf3d", &mlx))
+        return(0);
+    if (!get_map(ac, av, &mlx))// || !get_textures(&mlx) || !init_it("wolf3d", &mlx))
         return(0);
     printf("map width: %d map height: %d\n", mlx.map.width, mlx.map.height);
     printf("playerx %f playery %f\n", mlx.player.x, mlx.player.y);

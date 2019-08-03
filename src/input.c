@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/03 01:27:42 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/03 01:38:00 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void				start(t_mlx *mlx)
 {
 	mlx->player.camplane_x = 0;
 	mlx->player.camplane_y = 0.66;
-	mlx->player.dir_x = 1;
+	mlx->player.dir_x = -1;
 	mlx->player.dir_y = 0;
 	ft_printf("playerx %f player7 %f\n", mlx->player.x, mlx->player.y);
 	mlx_draw(mlx);

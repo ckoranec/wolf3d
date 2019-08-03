@@ -100,8 +100,8 @@ int    get_map(int ac, char **av, t_mlx *mlx)
 	}
 	if (!mlx->player.x && !mlx->player.y)
 		return (fail(0, "starting pos not found"));
-	mlx->player.x = 9.0f;
-	mlx->player.y = 8.0f;
+	mlx->player.x = 3.5f;
+	mlx->player.y = 6.5f;
 	printf("player: x(%f) y(%f)\n", mlx->player.x, mlx->player.y);
 	return (1);
 }

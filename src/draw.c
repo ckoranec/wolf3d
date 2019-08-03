@@ -90,16 +90,17 @@ void						draw_it(t_mlx *mlx)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			printf("checking %f %f\n", mapx, mapy);
+			//printf("checking %f %f\n", mapx, mapy);
 			if (mapx >= 0 && mapx < (double)mlx->map.width && mapy >= 0 && mapy < (double)mlx->map.height)
 			{
-				printf("ayy\n");
+				//printf("ayy\n");
 				hit = *(mlx->map.matrix + (mlx->map.width * (int)mapy + (int)mapx));
-				printf("hit %d\n", hit);
+				//printf("hit %d\n", hit);
 			}
 			if (hit != 0)
 			{
 				printf("hit! %f %f\n", mapx, mapy);
+				break ;
 			}
 			if (mapx < 0 || mapx >= (double)mlx->map.width || mapy < 0 || mapy >= (double)mlx->map.height)
 				break ;

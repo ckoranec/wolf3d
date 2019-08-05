@@ -84,7 +84,7 @@ void						cast(int col, t_mlx *mlx)
 	ray.sidey = ray.diry < 0 ? (playery - mapy) * ray.deltay : (mapy + 1.0f - playery) * ray.deltay; //working on it(r->y < 0 ? p->y - t.my : t.my - p->y + 1) * t.dy;
 	int hit = 0;
 	int side;
-	printf("stepx %d stepy %d\n", ray.stepx, ray.stepy);
+	//printf("stepx %d stepy %d\n", ray.stepx, ray.stepy);
 	printf("mapx %f mapy %f\n", mapx, mapy);
 	printf("looking\n");
 	while (hit == 0)
@@ -97,7 +97,7 @@ void						cast(int col, t_mlx *mlx)
 		}
 		else
 		{
-			ray.sidey += ray.deltax;
+			ray.sidey += ray.deltay;
 			mapy += ray.stepy;
 			side = 1;
 		}
@@ -106,7 +106,7 @@ void						cast(int col, t_mlx *mlx)
 		//if (mapx < 0 || mapx > (double)mlx->map.width - 1 || mapy < 0 || mapy > (double)mlx->map.height - 1)
 		//	return ;
 		//printf("ayy\n");
-		hit = *(mlx->map.matrix + (mlx->map.width * (int)mapy + (int)mapx));
+		hit = *(mlx->map.matrix + (mlx->map.width * (int)floor(mapy) + (int)floor(mapx)));
 		//printf("hit %d\n", hit);
 		if (hit != 0)
 		{

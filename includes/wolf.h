@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/05 03:55:54 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/05 04:23:37 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ typedef struct				s_ray
 {
 	double						dirx;
 	double						diry;
-	int							stepx;
-	int							stepy;
+	double							stepx;
+	double							stepy;
 	double						sidex;
 	double						sidey;
 	double						mx;

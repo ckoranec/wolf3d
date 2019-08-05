@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/05 03:56:26 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/05 04:23:48 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,15 @@ static void			rotate_player(double angle, t_mlx *mlx)
 
 static void			move_player(t_mlx *mlx, double amount)
 {
-	t_vect_3 new = { mlx->player.x, mlx->player.y, 0 };
-	if (new.x < 0.5f || new.x > mlx->map.width - 1.5f || new.y < 0.5f || new.y > mlx->map.height - 1.5f)
+	//int hit;
+	t_vect_3 new = { mlx->player.x + amount, mlx->player.y + amount, 0 };
+	if (new.x < 1.2f || new.x > mlx->map.width - 1.2f || new.y < 1.2f || new.y > mlx->map.height - 1.2f)
 		return ;
-	mlx->player.x  += amount;
-	mlx->player.y += amount;
+	//hit = *(mlx->map.matrix + (mlx->map.width * (int)floor(new.y) + (int)floor(new.x)));
+	//if (hit != 0)
+	//	return ;
+	mlx->player.x  = new.x;
+	mlx->player.y = new.y;
 }
 
 static int			fdf_key_hook(int key, t_mlx *mlx)

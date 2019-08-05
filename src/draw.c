@@ -40,7 +40,7 @@ void						draw_column(int x, t_mlx *mlx, double dist, int type)
     int drawEnd = drawStart + lineHeight;
     if(drawEnd > WIN_HEIGHT - 1)
 		drawEnd = WIN_HEIGHT - 1;
-	if (dist == 0 || dist == 0)
+	if (dist == 0)
 		dda(mlx, 0, WIN_HEIGHT, x, type);
 	else
 		dda(mlx, drawStart, drawEnd, x, type);

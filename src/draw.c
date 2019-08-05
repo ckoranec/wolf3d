@@ -30,13 +30,15 @@ void		dda(t_mlx *mlx, int start, int end, int x, int type)
 void						draw_column(int x, t_mlx *mlx, double dist, int type)
 {
 	printf("dist %f\n", dist);
-	int lineHeight = (int)(WIN_HEIGHT / (dist * 10));
 
-	int drawStart = -lineHeight / 2 + WIN_HEIGHT / 2;
+	int lineHeight = (int)floor(WIN_HEIGHT / dist);
+	//int lineHeight = (int)(WIN_HEIGHT / (dist * 10));
+
+	int drawStart = (WIN_HEIGHT - lineHeight) / 2; //-lineHeight / 2 + WIN_HEIGHT / 2;
     if(drawStart < 0)
 	  	drawStart = 0;
-    int drawEnd = lineHeight / 2 + WIN_HEIGHT / 2;
-    if(drawEnd >= WIN_HEIGHT)
+    int drawEnd = drawStart + lineHeight;
+    if(drawEnd > WIN_HEIGHT - 1)
 		drawEnd = WIN_HEIGHT - 1;
 	if (dist == 0 || dist == 0)
 		dda(mlx, 0, WIN_HEIGHT, x, type);
@@ -46,8 +48,8 @@ void						draw_column(int x, t_mlx *mlx, double dist, int type)
 
 void						draw_it(t_mlx *mlx)
 {
-    t_ray ray;
-    t_player *player;
+    t_ray		ray;
+    t_player	*player;
 	double		camera;
 
 	
@@ -60,10 +62,12 @@ void						draw_it(t_mlx *mlx)
 		printf("testing map w %d h %d f_w %f f_h %f\n", mlx->map.width, mlx->map.height, (double)mlx->map.width, (double)mlx->map.height);
 		double mapx = playerx;
 		double mapy = playery;
+
+
     	double planex = player->camplane_x;
 		double planey = player->camplane_y;
 
-		camera = 2 * x / (double)mlx->map.width - 1;
+		camera = 2.0f * x / (double)WIN_WIDTH - 1.0f;
 		ray.dirx = mlx->player.dir_x + planex * camera;
 		ray.diry = mlx->player.dir_y + planey * camera;
 
@@ -111,9 +115,9 @@ void						draw_it(t_mlx *mlx)
 		printf("done looking\n");
 		double prepwalldist;
 		if (side == 0)
-			prepwalldist = (mapx - playerx + (1 - ray.stepx) / 2) / ray.dirx;
+			prepwalldist = (mapx - playerx + (1.0 - ray.stepx) / 2.0) / ray.dirx;
 		else
-			prepwalldist = (mapy - playery + (1 - ray.stepy) / 2) / ray.diry;
+			prepwalldist = (mapy - playery + (1.0 - ray.stepy) / 2.0) / ray.diry;
 		draw_column(x, mlx, prepwalldist, hit);
 	}
 }

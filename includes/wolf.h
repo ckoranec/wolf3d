@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/03 03:16:24 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/04 23:00:29 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct				s_player
 	double					dir_x;
 	double					dir_y;
 	double					rotspeed;
+	double					movespeed;
 	double					camplane_x;
 	double					camplane_y;
 }							t_player;

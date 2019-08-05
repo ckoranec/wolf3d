@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/05 00:54:11 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/05 03:55:54 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@ typedef struct				s_ray
 	double						deltay;
 }							t_ray;
 
-typedef struct				s_vect_2
+typedef struct				s_vect_3
 {
 	double					x;
 	double					y;
-}							t_vect_2;
+	double					z;
+}							t_vect_3;
 
 typedef struct				s_image
 {
@@ -70,12 +71,9 @@ typedef struct				s_player
 {
 	double					x;
 	double					y;
-	double					dir_x;
-	double					dir_y;
-	double					rotspeed;
+	t_vect_3				dir;
+	t_vect_3				cam;
 	double					movespeed;
-	double					camplane_x;
-	double					camplane_y;
 }							t_player;
 
 typedef struct				s_mlx

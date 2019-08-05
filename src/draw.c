@@ -64,18 +64,18 @@ void						cast(int col, t_mlx *mlx)
 	player = &mlx->player;
 	double playerx = player->x;
 	double playery = player->y;
-	double planex = player->camplane_x;
-	double planey = player->camplane_y;
+	double planex = player->cam.x;
+	double planey = player->cam.y;
 
 
-	printf("pdir x %f pdir y %f\n", mlx->player.dir_x, mlx->player.dir_y);
+	printf("pdir x %f pdir y %f\n", mlx->player.dir.x, mlx->player.dir.y);
 	printf("testing map w %d h %d f_w %f f_h %f\n", mlx->map.width, mlx->map.height, (double)mlx->map.width, (double)mlx->map.height);
 	double mapx = playerx;
 	double mapy = playery;
 
 	camera = 2.0f * col / (double)WIN_WIDTH - 1.0f;
-	ray.dirx = mlx->player.dir_x + planex * camera;
-	ray.diry = mlx->player.dir_y + planey * camera;
+	ray.dirx = mlx->player.dir.x + planex * camera;
+	ray.diry = mlx->player.dir.y + planey * camera;
 	ray.deltax = sqrt((ray.diry * ray.diry) / (ray.dirx * ray.dirx) + 1);///*ray.dirx == 0 ? 0 : */fabs(1/ray.dirx);
 	ray.deltay = sqrt((ray.dirx * ray.dirx) / (ray.diry * ray.diry) + 1);///*ray.diry == 0 ? 0 : */fabs(1/ray.diry);
 	ray.stepx = (ray.dirx < 0 ? -1 : 1);

@@ -27,33 +27,48 @@ void		dda(t_mlx *mlx, int start, int end, int x, int type)
 	printf("dda done\n");
 }
 
-void						dda_temp(t_mlx *mlx, int start, int end, int x, int type)
+int							texture_pixel(int x, int y, t_ray *r)
+{
+	if (x < 0 || y < 0 || x >= r->texture->width || y >= r->texture->height)
+		return (0);
+	return (*(int *)(r->texture->ptr + ((x + y * r->texture->height) *
+		r->texture->bpp)));
+}
+
+void						dda_temp(t_mlx *mlx, int start, int end, int x, t_ray *ray)
 {
 	int y = start;
 	while (y < end)
 	{
-		image_set_pixel(mlx->image, x, y, colors(type));
+		if (ray->texture)
+		{
+			ray->tex_pos.y = ((y - WIN_HEIGHT * 0.5f + (end - start) * 0.5f) *
+				ray->texture->height) / (end - start);
+		//printf("printing color %d from texture %p\n", texture_pixel(x, y, ray, mlx), ray->texture);
+			image_set_pixel(mlx->image, x, y, texture_pixel(ray->tex_pos.x, ray->tex_pos.y, ray));
+		}
+		else
+			image_set_pixel(mlx->image, x, y, colors(ray->tex_pos.z));
 		y++;
 	}
 }
 
-void						draw_column(int x, t_mlx *mlx, double dist, int type)
+void						draw_column(int x, t_mlx *mlx, t_ray *ray)
 {
-	printf("dist %f\n", dist);
+	//printf("dist %f\n", ray->dist);
 
-	int lineHeight = (int)floor(WIN_HEIGHT / dist);
+	int lineHeight = (int)floor(WIN_HEIGHT / ray->dist);
 	//int lineHeight = (int)(WIN_HEIGHT / (dist * 10));
-
 	int drawStart = (WIN_HEIGHT - lineHeight) / 2; //-lineHeight / 2 + WIN_HEIGHT / 2;
     if(drawStart < 0)
 	  	drawStart = 0;
     int drawEnd = drawStart + lineHeight;
     if(drawEnd > WIN_HEIGHT - 1)
 		drawEnd = WIN_HEIGHT - 1;
-	if (dist == 0)
-		dda_temp(mlx, 0, WIN_HEIGHT, x, type);
+	if (ray->dist == 0)
+		dda_temp(mlx, 0, WIN_HEIGHT, x, ray);
 	else
-		dda_temp(mlx, drawStart, drawEnd, x, type);
+		dda_temp(mlx, drawStart, drawEnd, x, ray);
 }
 
 void						cast(int col, t_mlx *mlx)
@@ -68,8 +83,9 @@ void						cast(int col, t_mlx *mlx)
 	double planey = player->cam.y;
 
 
-	printf("pdir x %f pdir y %f\n", mlx->player.dir.x, mlx->player.dir.y);
-	printf("testing map w %d h %d f_w %f f_h %f\n", mlx->map.width, mlx->map.height, (double)mlx->map.width, (double)mlx->map.height);
+	//printf("pdir x %f pdir y %f\n", mlx->player.dir.x, mlx->player.dir.y);
+	//printf("player plane %f %f\n", player->cam.x, player->cam.y);
+	//printf("testing map w %d h %d f_w %f f_h %f\n", mlx->map.width, mlx->map.height, (double)mlx->map.width, (double)mlx->map.height);
 	double mapx = playerx;
 	double mapy = playery;
 
@@ -85,8 +101,8 @@ void						cast(int col, t_mlx *mlx)
 	int hit = 0;
 	int side;
 	//printf("stepx %d stepy %d\n", ray.stepx, ray.stepy);
-	printf("mapx %f mapy %f\n", mapx, mapy);
-	printf("looking\n");
+	//printf("mapx %f mapy %f\n", mapx, mapy);
+	//printf("looking\n");
 	while (hit == 0)
 	{
 		if (ray.sidex < ray.sidey)
@@ -108,29 +124,68 @@ void						cast(int col, t_mlx *mlx)
 		//printf("ayy\n");
 		hit = *(mlx->map.matrix + (mlx->map.width * (int)floor(mapy) + (int)floor(mapx)));
 		//printf("hit %d\n", hit);
-		if (hit != 0)
-		{
-			printf("hit! %d at %f %f\n", hit, mapx, mapy);
-		}
+		//if (hit != 0)
+			//printf("hit! %d at %f %f\n", hit, mapx, mapy);
 		//if (mapx < 0 || mapx >= (double)mlx->map.width || mapy < 0 || mapy >= (double)mlx->map.height)
 		//	break ;
 	}
-	printf("player: x(%f) y(%f)\n", mlx->player.x, mlx->player.y);
-	printf("done looking\n");
-	double prepwalldist;
+	//printf("player: x(%f) y(%f)\n", mlx->player.x, mlx->player.y);
+	//printf("done looking\n");
+	ray.texture = USE_TEX ? mlx->tex[hit] : NULL;
+	ray.tex_pos.z = hit;
 	if (side == 0)
-		prepwalldist = (mapx - playerx + (1.0 - ray.stepx) / 2.0) / ray.dirx;
+		ray.dist = (mapx - playerx + (1.0 - ray.stepx) / 2.0) / ray.dirx;
 	else
-		prepwalldist = (mapy - playery + (1.0 - ray.stepy) / 2.0) / ray.diry;
-	draw_column(col, mlx, prepwalldist, hit);
+		ray.dist = (mapy - playery + (1.0 - ray.stepy) / 2.0) / ray.diry;
+	ray.wall = (side ? player->x + ray.dist * ray.dirx : player->y + ray.dist * ray.diry);
+	ray.wall -= floor(ray.wall);
+	if (ray.texture)
+	ray.tex_pos.x = (int)(ray.wall * ray.texture->width);
+	draw_column(col, mlx, &ray);
+}
+
+void						*scan_across(void *in)
+{
+	t_thread_args *args = in;
+
+	pthread_mutex_lock(&g_lock);
+	int end = args->start + 240;
+	for(int x = args->start; x < end; x++)
+    {
+		cast(x, args->mlx);
+	}
+	free(args);
+	pthread_mutex_unlock(&g_lock);
+	pthread_exit(NULL);
+	return (0);
+}
+
+t_thread_args				*make_targs(t_mlx *mlx, int start)
+{
+	t_thread_args *args;
+
+	args = malloc(sizeof(t_thread_args));
+	args->mlx = mlx;
+	args->start = start;
+	return (args);
 }
 
 void						draw_it(t_mlx *mlx)
 {
-
-	for(int x = 0; x < WIN_WIDTH; x++)
-    {
-		cast(x, mlx);
+	pthread_t		thread[8];
+	int i = 0;
+	int x = 0;
+	int next;
+	if (pthread_mutex_init(&g_lock, NULL) != 0)
+		ft_printf("Mutex initialization failed.\n");
+	next = WIN_WIDTH / 8;
+	while (x < WIN_WIDTH)
+	{
+		pthread_create(&thread[i], NULL, scan_across, make_targs(mlx, x));
+		pthread_join(thread[i], NULL);
+		i++;
+		x = next;
+		next += WIN_WIDTH / 8;
 	}
 }
 

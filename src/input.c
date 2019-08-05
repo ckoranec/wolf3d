@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/05 04:23:48 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/05 06:43:39 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,18 @@ static void			rotate_player(double angle, t_mlx *mlx)
 static void			move_player(t_mlx *mlx, double amount)
 {
 	//int hit;
+	int hitx;
+	int hity;
 	t_vect_3 new = { mlx->player.x + amount, mlx->player.y + amount, 0 };
-	if (new.x < 1.2f || new.x > mlx->map.width - 1.2f || new.y < 1.2f || new.y > mlx->map.height - 1.2f)
+	if (new.x < 1.2f || new.x > mlx->map.width - 1 || new.y < 1.2f || new.y > mlx->map.height - 1)
 		return ;
 	//hit = *(mlx->map.matrix + (mlx->map.width * (int)floor(new.y) + (int)floor(new.x)));
 	//if (hit != 0)
 	//	return ;
-	mlx->player.x  = new.x;
-	mlx->player.y = new.y;
+	hitx = *(mlx->map.matrix + (mlx->map.width * (int)floor(new.x) + (int)floor(mlx->player.y)));
+	hity = *(mlx->map.matrix + (mlx->map.width * (int)floor(mlx->player.x) + (int)floor(new.y)));
+	mlx->player.x  = hitx ? mlx->player.x : new.x;
+	mlx->player.y = hity ? mlx->player.y : new.y;
 }
 
 static int			fdf_key_hook(int key, t_mlx *mlx)
@@ -64,11 +68,11 @@ static int			fdf_key_hook(int key, t_mlx *mlx)
 
 void				start(t_mlx *mlx)
 {
-	mlx->player.cam.x = 0;
-	mlx->player.cam.y = 0.66f;
-	mlx->player.dir.x = -1.0f;
-	mlx->player.dir.y = 0;
-	mlx->player.movespeed = 0.1f;
+	mlx->player.cam.x = 0.378560f;
+	mlx->player.cam.y = -0.540640f;
+	mlx->player.dir.x = 0.819152f;
+	mlx->player.dir.y = 0.573576f;
+	mlx->player.movespeed = 0.2f;
 	mlx_draw(mlx);
 	mlx_hook(mlx->window, 2, 5, fdf_key_hook, mlx);
 	mlx_loop(mlx->mlx);

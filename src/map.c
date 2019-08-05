@@ -2,8 +2,23 @@
 
 int    get_textures(t_mlx *mlx)
 {
-    if (mlx)
-        ;
+	static char	*map[TEXTURE_NB] = { "textures/brick_hi.xpm",
+		"textures/wood_hi.xpm", "textures/metal_hi.xpm", "textures/stone_hi.xpm",
+		"textures/grass_hi.xpm", NULL};
+	int			i;
+
+	i = 1;
+	while (i < TEXTURE_NB && map[i - 1])
+		if (!(mlx->tex[i] = xpm_image(map[i - 1], mlx)))
+		{
+			i = 0;
+			while (i < TEXTURE_NB)
+				del_image(mlx, mlx->tex[i++]);
+			return (0);
+		}
+		else
+			i++;
+	mlx->tex[0] = NULL;
     return (1);
 }
 

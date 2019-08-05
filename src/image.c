@@ -6,11 +6,27 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:46:37 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/01 00:03:25 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/05 04:56:28 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
+
+t_image	*xpm_image(char *xpm, t_mlx *mlx)
+{
+	t_image		*img;
+
+	if (!(img = malloc(sizeof(t_image)))
+		|| !(img->image = mlx_xpm_file_to_image(mlx->mlx, xpm, &img->width,
+			&img->height)))
+		return (del_image(mlx, img));
+	img->ptr = mlx_get_data_addr(img->image, &img->bpp, &img->stride,
+		&img->endian);
+	img->bpp /= 8;
+	img->width = img->stride / img->bpp;
+	img->height = img->stride / img->bpp;
+	return (img);
+}
 
 void	image_set_pixel(t_image *image, int x, int y, int color)
 {

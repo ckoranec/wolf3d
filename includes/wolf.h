@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/04 23:00:29 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/05 00:54:11 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,5 @@ void						cam_scale(t_mlx *mlx, int x, int y, int arg);
 int							get_map(int ac, char **av, t_mlx *mlx);
 int							get_textures(t_mlx *mlx);
 int							init_it(char *title, t_mlx *mlx);
+void						map_destroy(t_map *map);
 #endif

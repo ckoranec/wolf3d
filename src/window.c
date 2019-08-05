@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:56:37 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/03 00:56:35 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/05 00:55:48 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void		mlxdel(t_mlx *mlx)
 		mlx_destroy_window(mlx->mlx, mlx->window);
 	if (mlx->image != NULL)
 		del_image(mlx, mlx->image);
+	if (mlx->map.matrix)
+		map_destroy(&mlx->map);
 	exit(0);
 }
 

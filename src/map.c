@@ -62,6 +62,7 @@ static int	splint(t_mlx *mlx, int row, char **strs)
 		}
 		free(strs[i]);
 	}
+	free(strs);
 	return (fail ? 0 : 1);
 }
 
@@ -96,6 +97,7 @@ int    get_map(int ac, char **av, t_mlx *mlx)
 			free(line);
 			return (fail(0, "format err"));
 		}
+		free(line);
 		i++;
 	}
 	if (!mlx->player.x && !mlx->player.y)

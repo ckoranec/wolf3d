@@ -11,9 +11,8 @@ int main(int ac, char **av)
     t_mlx   mlx;
 
     ft_memset(&mlx, 0, sizeof(t_mlx));
-    ft_memset(&mlx.player, 0, sizeof(t_mlx));
-    ft_memset(&mlx.map, 0, sizeof(t_mlx));
-
+    ft_memset(&mlx.player, 0, sizeof(t_player));
+    ft_memset(&mlx.map, 0, sizeof(t_map));
     if (!init_it("wolf3d", &mlx))
         return(0);
     if (!get_map(ac, av, &mlx))// || !get_textures(&mlx) || !init_it("wolf3d", &mlx))

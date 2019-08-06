@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/05 06:43:39 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/05 21:30:42 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ static void			rotate_player(double angle, t_mlx *mlx)
 
 static void			move_player(t_mlx *mlx, double amount)
 {
-	//int hit;
 	int hitx;
 	int hity;
-	t_vect_3 new = { mlx->player.x + amount, mlx->player.y + amount, 0 };
+	t_vect_3 *pdir;
+
+	pdir = &mlx->player.dir;
+	t_vect_3 new = { mlx->player.x + (amount * pdir->x), mlx->player.y + (amount * pdir->y), 0 };
 	if (new.x < 1.2f || new.x > mlx->map.width - 1 || new.y < 1.2f || new.y > mlx->map.height - 1)
 		return ;
 	//hit = *(mlx->map.matrix + (mlx->map.width * (int)floor(new.y) + (int)floor(new.x)));
@@ -54,13 +56,13 @@ static int			fdf_key_hook(int key, t_mlx *mlx)
 {
 	if (key == KEY_ESCAPE)
 		mlxdel(mlx);
-	if (key == KEY_W)
-		move_player(mlx, mlx->player.dir.x * mlx->player.movespeed);
-	if (key == KEY_S)
-		move_player(mlx, -(mlx->player.dir.x * mlx->player.movespeed));
-	if (key == KEY_A)
+	if (key == KEY_UP)
+		move_player(mlx, mlx->player.movespeed);
+	if (key == KEY_DOWN)
+		move_player(mlx, -mlx->player.movespeed);
+	if (key == KEY_LEFT)
 		rotate_player(5.0f / 180.0f * M_PI, mlx);
-	if (key == KEY_D)
+	if (key == KEY_RIGHT)
 		rotate_player(-5.0f / 180.0f * M_PI, mlx);
 	mlx_draw(mlx);
 	return (0);

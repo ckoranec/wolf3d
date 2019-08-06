@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/05 06:19:32 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/05 21:40:52 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct				s_ray
 	double						deltay;
 	double					dist;
 	double					wall;
+	int						height;
 	t_image					*texture;
 	t_vect_3				tex_pos;
 }							t_ray;

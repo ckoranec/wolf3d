@@ -42,8 +42,8 @@ void						dda_temp(t_mlx *mlx, int start, int end, int x, t_ray *ray)
 	{
 		if (ray->texture)
 		{
-			ray->tex_pos.y = ((y - WIN_HEIGHT * 0.5f + (end - start) * 0.5f) *
-				ray->texture->height) / (end - start);
+			ray->tex_pos.y = ((y - WIN_HEIGHT * 0.5f + ray->height * 0.5f) *
+				ray->texture->height) / ray->height;
 		//printf("printing color %d from texture %p\n", texture_pixel(x, y, ray, mlx), ray->texture);
 			image_set_pixel(mlx->image, x, y, texture_pixel(ray->tex_pos.x, ray->tex_pos.y, ray));
 		}
@@ -58,6 +58,7 @@ void						draw_column(int x, t_mlx *mlx, t_ray *ray)
 	//printf("dist %f\n", ray->dist);
 
 	int lineHeight = (int)floor(WIN_HEIGHT / ray->dist);
+	ray->height = lineHeight;
 	//int lineHeight = (int)(WIN_HEIGHT / (dist * 10));
 	int drawStart = (WIN_HEIGHT - lineHeight) / 2; //-lineHeight / 2 + WIN_HEIGHT / 2;
     if(drawStart < 0)
@@ -65,10 +66,11 @@ void						draw_column(int x, t_mlx *mlx, t_ray *ray)
     int drawEnd = drawStart + lineHeight;
     if(drawEnd > WIN_HEIGHT - 1)
 		drawEnd = WIN_HEIGHT - 1;
-	if (ray->dist == 0)
-		dda_temp(mlx, 0, WIN_HEIGHT, x, ray);
-	else
-		dda_temp(mlx, drawStart, drawEnd, x, ray);
+	//if (ray->dist == 0)
+	//	dda_temp(mlx, 0, WIN_HEIGHT, x, ray);
+	//else
+	//	dda_temp(mlx, drawStart, drawEnd, x, ray);
+	dda_temp(mlx, drawStart, drawEnd, x, ray);
 }
 
 void						cast(int col, t_mlx *mlx)
@@ -86,8 +88,8 @@ void						cast(int col, t_mlx *mlx)
 	//printf("pdir x %f pdir y %f\n", mlx->player.dir.x, mlx->player.dir.y);
 	//printf("player plane %f %f\n", player->cam.x, player->cam.y);
 	//printf("testing map w %d h %d f_w %f f_h %f\n", mlx->map.width, mlx->map.height, (double)mlx->map.width, (double)mlx->map.height);
-	double mapx = playerx;
-	double mapy = playery;
+	int mapx = playerx;
+	int mapy = playery;
 
 	camera = 2.0f * col / (double)WIN_WIDTH - 1.0f;
 	ray.dirx = mlx->player.dir.x + planex * camera;

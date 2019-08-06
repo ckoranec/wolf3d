@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/06 00:07:18 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/06 02:56:36 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdbool.h>
 
 # define USE_TEX 1
+# define BOUNDS 1
 # define WIN_WIDTH 2560
 # define WIN_HEIGHT 1440
 # define FT_MIN(A, B) (((A) < (B)) ? (A) : (B))

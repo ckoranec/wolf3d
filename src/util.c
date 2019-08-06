@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 23:27:25 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/06 00:14:35 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/06 02:32:50 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int		colors(int i)
 {
-	static int rgb[5] = { RED, GREEN, GRAY, YELLOW, MIDNIGHT_BLUE};
+	static int rgb[62] = { RED, ORANGE, LIME, BLUE, YELLOW, CYAN, MAGENTA, SILVER,
+	GRAY, MAROON, OLIVE, GREEN, PURPLE, TEAL, NAVY, CRIMSON, CORAL, INDIAN_RED, SALMON, ORANGE_RED, GOLD,
+	GOLDEN_ROD, SADDLEBROWN, LAWN_GREEN, DARK_GREEN, FOREST_GREEN, PALE_GREEN, SPRING_GREEN, SEA_GREEN, LIGHT_SEA_GREEN,
+	DARK_SLATE_GRAY, POWDER_BLUE, AQUA_MARINE, STEEL_BLUE, SKY_BLUE, MIDNIGHT_BLUE, INDIGO, DARK_MAGENTA, DEEP_PINK,
+	HOT_PINK, ORCHID, BEIGE, ANTIQUE_WHITE, WHEAT, CORN_SILK, LAVENDER, FLORAL_WHITE, ALICE_BLUE, GHOST_WHITE, HONEYDEW,
+	IVORY, AZURE, SNOW, MISTY_ROSE, DARK_GRAY, GAINSBORO, WHITE_SMOKE, DISCO, BRICK_RED, FLAMINGO, JAFFA, SAFFRON };
 
-	return (rgb[i % 5]);
+	return (rgb[i % 62]);
 }
 
 int		texture_pixel(int x, int y, t_ray *r)

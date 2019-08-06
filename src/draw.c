@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 23:20:55 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/06 00:12:32 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/06 02:17:51 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void				step_ray(t_ray *ray, t_player *p, t_mlx *mlx)
 	/ ray->dirx : (ray->my - p->y + (1.0 - ray->stepy) / 2.0) / ray->diry;
 	ray->wall = (side ? p->x + ray->dist * ray->dirx :
 		p->y + ray->dist * ray->diry);
-	ray->texture = USE_TEX ? mlx->tex[ray->hit] : NULL;
+	ray->texture = USE_TEX && ray->hit > 0 && ray->hit < 6 ? mlx->tex[ray->hit] : NULL;
 }
 
 void				cast(int col, t_mlx *mlx)

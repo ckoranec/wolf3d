@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: calamber <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:09 by calamber          #+#    #+#             */
-/*   Updated: 2019/07/15 17:44:12 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/06 02:44:01 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # define PURPLE 0x800080
 # define TEAL 0x008080
 # define NAVY 0x000080
-
 # define CRIMSON 0xDC143C
 # define CORAL 0xFF7F50
 # define INDIAN_RED 0xCD5C5C

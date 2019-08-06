@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/06 00:20:25 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/06 02:20:32 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ static void			move_player(t_mlx *mlx, double amount)
 	pdir = &mlx->player.dir;
 	new.x = mlx->player.x + (amount * pdir->x);
 	new.y = mlx->player.y + (amount * pdir->y);
-	if (new.x < 0 || new.x > mlx->map.width
-		|| new.y < 0 || new.y > mlx->map.height)
+	if ((new.x < 0 || new.x > mlx->map.width
+		|| new.y < 0 || new.y > mlx->map.height) && BOUNDS)
 		return ;
 	hitx = *(mlx->map.matrix + (mlx->map.width *
 		(int)floor(new.x) + (int)floor(mlx->player.y)));
 	hity = *(mlx->map.matrix + (mlx->map.width *
 		(int)floor(mlx->player.x) + (int)floor(new.y)));
-	mlx->player.x = hitx ? mlx->player.x : new.x;
-	mlx->player.y = hity ? mlx->player.y : new.y;
+	mlx->player.x = new.x;//hitx ? mlx->player.x : new.x;
+	mlx->player.y = new.y;//hity ? mlx->player.y : new.y;
 }
 
 static int			fdf_key_hook(int key, t_mlx *mlx)

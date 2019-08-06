@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/05 23:25:03 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/06 00:20:25 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void			move_player(t_mlx *mlx, double amount)
 	pdir = &mlx->player.dir;
 	new.x = mlx->player.x + (amount * pdir->x);
 	new.y = mlx->player.y + (amount * pdir->y);
-	if (new.x < 1.2f || new.x > mlx->map.width - 1
-		|| new.y < 1.2f || new.y > mlx->map.height - 1)
+	if (new.x < 0 || new.x > mlx->map.width
+		|| new.y < 0 || new.y > mlx->map.height)
 		return ;
 	hitx = *(mlx->map.matrix + (mlx->map.width *
 		(int)floor(new.x) + (int)floor(mlx->player.y)));

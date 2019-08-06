@@ -1,32 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/05 23:18:23 by calamber          #+#    #+#             */
+/*   Updated: 2019/08/05 23:19:23 by calamber         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf.h"
 
-int fail(int ret, char *note)
+int	fail(int ret, char *note)
 {
-    ft_printf("%s\n", note);
-    return (ret);
+	ft_printf("%s\n", note);
+	return (ret);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    t_mlx   mlx;
+	t_mlx	mlx;
 
-    ft_memset(&mlx, 0, sizeof(t_mlx));
-    ft_memset(&mlx.player, 0, sizeof(t_player));
-    ft_memset(&mlx.map, 0, sizeof(t_map));
-    if (!init_it("wolf3d", &mlx))
-        return(0);
-    if (!get_map(ac, av, &mlx))// || !get_textures(&mlx) || !init_it("wolf3d", &mlx))
-        return(0);
-    if (!get_textures(&mlx))
-        return (0);
-    printf("map width: %d map height: %d\n", mlx.map.width, mlx.map.height);
-    printf("playerx %f playery %f\n", mlx.player.x, mlx.player.y);
-    for (int y = 0; y < mlx.map.height; y++)
-    {
-        for (int x = 0; x < mlx.map.width; x++)
-            ft_printf("%d", *(mlx.map.matrix + (mlx.map.width * y + x)));
-        ft_printf("\n");
-    }
-    start(&mlx);
-    return (0);
+	if (ac < 2)
+		return (fail(1, "usage: ./wolf3d mappath"));
+	ft_memset(&mlx, 0, sizeof(t_mlx));
+	ft_memset(&mlx.player, 0, sizeof(t_player));
+	ft_memset(&mlx.map, 0, sizeof(t_map));
+	if (!init_it("wolf3d", &mlx))
+		return (0);
+	if (!get_map(av, &mlx))
+		return (0);
+	if (!get_textures(&mlx))
+		return (0);
+	start(&mlx);
+	return (0);
 }

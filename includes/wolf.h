@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/05 21:40:52 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/06 00:07:18 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <stdbool.h>
 
 # define USE_TEX 1
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 2560
+# define WIN_HEIGHT 1440
 # define FT_MIN(A, B) (((A) < (B)) ? (A) : (B))
 # define TEXTURE_NB 6
 
@@ -58,16 +58,17 @@ typedef struct				s_image
 
 typedef struct				s_ray
 {
-	double						dirx;
-	double						diry;
-	double							stepx;
-	double							stepy;
-	double						sidex;
-	double						sidey;
-	double						mx;
-	double						my;
-	double						deltax;
-	double						deltay;
+	int						hit;
+	double					dirx;
+	double					diry;
+	double					stepx;
+	double					stepy;
+	double					sidex;
+	double					sidey;
+	int						mx;
+	int						my;
+	double					deltax;
+	double					deltay;
 	double					dist;
 	double					wall;
 	int						height;
@@ -111,9 +112,10 @@ void						image_set_pixel(t_image *image, int x,
 								int y, int color);
 void						cam_reset(t_mlx *mlx);
 void						cam_scale(t_mlx *mlx, int x, int y, int arg);
-int							get_map(int ac, char **av, t_mlx *mlx);
+int							get_map(char **av, t_mlx *mlx);
 int							get_textures(t_mlx *mlx);
 int							init_it(char *title, t_mlx *mlx);
 void						map_destroy(t_map *map);
 t_image						*xpm_image(char *xpm, t_mlx *mlx);
+void						draw_column(int x, t_mlx *mlx, t_ray *ray);
 #endif

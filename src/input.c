@@ -6,13 +6,11 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/05 21:30:42 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/05 23:25:03 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
-
-
 
 static void			rotate_v(double angle, t_vect_3 *v)
 {
@@ -35,20 +33,22 @@ static void			rotate_player(double angle, t_mlx *mlx)
 
 static void			move_player(t_mlx *mlx, double amount)
 {
-	int hitx;
-	int hity;
-	t_vect_3 *pdir;
+	int			hitx;
+	int			hity;
+	t_vect_3	*pdir;
+	t_vect_3	new;
 
 	pdir = &mlx->player.dir;
-	t_vect_3 new = { mlx->player.x + (amount * pdir->x), mlx->player.y + (amount * pdir->y), 0 };
-	if (new.x < 1.2f || new.x > mlx->map.width - 1 || new.y < 1.2f || new.y > mlx->map.height - 1)
+	new.x = mlx->player.x + (amount * pdir->x);
+	new.y = mlx->player.y + (amount * pdir->y);
+	if (new.x < 1.2f || new.x > mlx->map.width - 1
+		|| new.y < 1.2f || new.y > mlx->map.height - 1)
 		return ;
-	//hit = *(mlx->map.matrix + (mlx->map.width * (int)floor(new.y) + (int)floor(new.x)));
-	//if (hit != 0)
-	//	return ;
-	hitx = *(mlx->map.matrix + (mlx->map.width * (int)floor(new.x) + (int)floor(mlx->player.y)));
-	hity = *(mlx->map.matrix + (mlx->map.width * (int)floor(mlx->player.x) + (int)floor(new.y)));
-	mlx->player.x  = hitx ? mlx->player.x : new.x;
+	hitx = *(mlx->map.matrix + (mlx->map.width *
+		(int)floor(new.x) + (int)floor(mlx->player.y)));
+	hity = *(mlx->map.matrix + (mlx->map.width *
+		(int)floor(mlx->player.x) + (int)floor(new.y)));
+	mlx->player.x = hitx ? mlx->player.x : new.x;
 	mlx->player.y = hity ? mlx->player.y : new.y;
 }
 

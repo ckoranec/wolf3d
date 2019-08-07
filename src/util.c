@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 23:27:25 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/06 02:32:50 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/07 04:49:34 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		get_textures(t_mlx *mlx)
 {
 	static char	*map[TEXTURE_NB] = { "textures/brick_hi.xpm",
 		"textures/wood_hi.xpm", "textures/metal_hi.xpm",
-		"textures/stone_hi.xpm", "textures/grass_hi.xpm", NULL};
+		"textures/stone_hi.xpm", "textures/grass_hi.xpm", "textures/brick.xpm", "textures/brick.xpm", NULL};
 	int			i;
 
 	i = 1;

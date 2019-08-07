@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 23:20:55 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/06 02:17:51 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/07 09:27:27 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void				step_ray(t_ray *ray, t_player *p, t_mlx *mlx)
 	int side;
 
 	ray->hit = 0;
-	while (ray->hit == 0)
+	while (ray->hit == 0 || ray->hit == 6 || ray->hit == 7)
 	{
 		if (ray->sidex < ray->sidey)
 		{
@@ -32,10 +32,32 @@ void				step_ray(t_ray *ray, t_player *p, t_mlx *mlx)
 			side = 1;
 		}
 		ray->hit = *(mlx->map.matrix + (mlx->map.width *
-			(int)floor(ray->my) + (int)floor(ray->mx)));
+			ray->my + ray->mx));
+		if (ray->hit == 6 || ray->hit == 7)
+		{
+			//printf("ray hit %d at x %d y %d\n", ray->hit, ray->mx, ray->my);
+			//printf("ray side x %f y %f\n", ray->sidex, ray->sidey);
+			ray->mx = ray->hit == 6 ? 4 : 6;
+			ray->my = ray->hit == 6 ? 1 : 11;
+			if (ray->sidex < ray->sidey)
+			{
+				ray->sidex += ray->deltax;
+				ray->mx += ray->stepx;
+				side = 0;
+			}
+			else
+			{
+				ray->sidey += ray->deltay;
+				ray->my += ray->stepy;
+				side = 1;
+			}
+			//printf("ray is now at x %d y %d\n", ray->mx, ray->my);
+
+		}
 	}
 	ray->dist = side == 0 ? (ray->mx - p->x + (1.0 - ray->stepx) / 2.0)
 	/ ray->dirx : (ray->my - p->y + (1.0 - ray->stepy) / 2.0) / ray->diry;
+
 	ray->wall = (side ? p->x + ray->dist * ray->dirx :
 		p->y + ray->dist * ray->diry);
 	ray->texture = USE_TEX && ray->hit > 0 && ray->hit < 6 ? mlx->tex[ray->hit] : NULL;
@@ -65,6 +87,15 @@ void				cast(int col, t_mlx *mlx)
 	ray.wall -= floor(ray.wall);
 	if (ray.texture)
 		ray.tex_pos.x = (int)(ray.wall * ray.texture->width);
+	if (col == WIN_WIDTH / 2 - 1)
+	{
+		printf("hit: %d at x %d y %d\nmem addr %p\n\n", ray.hit, ray.mx, ray.my, (mlx->map.matrix + (mlx->map.width *
+			(int)floor(ray.my) + (int)floor(ray.mx))));
+		printf("player x %f player y %f\n", mlx->player.x, mlx->player.y);
+		printf("ray side x %f y %f\n", ray.sidex, ray.sidey);
+	}
+	//if (col == WIN_WIDTH - 1)
+	//	//printf("final hit %d at x %d y %d\n", ray.hit, ray.mx, ray.my);
 	draw_column(col, mlx, &ray);
 }
 

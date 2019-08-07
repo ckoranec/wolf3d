@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/06 02:20:32 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/07 08:23:30 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void				start(t_mlx *mlx)
 	mlx->player.cam.y = -0.540640f;
 	mlx->player.dir.x = 0.819152f;
 	mlx->player.dir.y = 0.573576f;
-	mlx->player.movespeed = 0.2f;
+	mlx->player.movespeed = 0.1f;
 	mlx_draw(mlx);
 	mlx_hook(mlx->window, 2, 5, fdf_key_hook, mlx);
 	mlx_loop(mlx->mlx);

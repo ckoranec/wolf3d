@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:44:17 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/07 04:57:52 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/07 20:28:08 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <stdbool.h>
 
 # define USE_TEX 1
-# define BOUNDS 0
+# define BOUNDS 1
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
 # define FT_MIN(A, B) (((A) < (B)) ? (A) : (B))
@@ -73,6 +73,7 @@ typedef struct				s_ray
 	double					dist;
 	double					wall;
 	int						height;
+	int						side;
 	t_image					*texture;
 	t_vect_3				tex_pos;
 }							t_ray;

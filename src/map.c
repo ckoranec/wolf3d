@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 23:19:48 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/06 01:52:50 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/07 18:05:07 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int			get_map(char **av, t_mlx *mlx)
 		}
 		free(line);
 	}
-	printf("player x %f player y %f\n", mlx->player.x, mlx->player.y);
 	if (!mlx->player.x && !mlx->player.y)
 		return (fail(0, "starting pos not found"));
 	return (1);

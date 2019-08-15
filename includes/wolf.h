@@ -15,14 +15,18 @@
 
 # include "../libft/libft.h"
 # include "colors.h"
-# include "keycode_mac.h"
+
 # include "mlx.h"
 # include <math.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <pthread.h>
 # include <stdbool.h>
-
+# ifdef __linux__
+# include "keycode_linux.h"
+# else
+# include "keycode_mac.h"
+# endif
 # define USE_TEX 1
 # define BOUNDS 1
 # define WIN_WIDTH 1280

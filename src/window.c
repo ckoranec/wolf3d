@@ -43,5 +43,6 @@ int			init_it(char *title, t_mlx *mlx)
 		mlxdel(mlx);
 		return (0);
 	}
+	mlx->mode = NULL;
 	return (1);
 }

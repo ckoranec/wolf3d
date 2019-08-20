@@ -33,20 +33,22 @@ static void			rotate_player(double angle, t_mlx *mlx)
 
 static void			move_player(t_mlx *mlx, double amount)
 {
-	int			hit;
+	//int			hit;
 	t_vect_3	*pdir;
 	t_vect_3	new;
 
 	pdir = &mlx->player.dir;
 	new.x = mlx->player.x + (amount * pdir->x);
 	new.y = mlx->player.y + (amount * pdir->y);
-	hit = *(mlx->map.matrix + (mlx->map.width *
-		(int)floor(new.y) + (int)floor(new.x)));
-	mlx->player.x = !(BOUNDS && hit) ? new.x : mlx->player.x;
-	mlx->player.y = !(BOUNDS && hit) ? new.y : mlx->player.y;
+	//hit = *(mlx->map.matrix + (mlx->map.width *
+	//	(int)floor(new.y) + (int)floor(new.x)));
+	mlx->player.x = !(BOUNDS && *(mlx->map.matrix + (mlx->map.width *
+		(int)floor(mlx->player.y) + (int)floor(new.x)))) ? new.x : mlx->player.x;
+	mlx->player.y = !(BOUNDS && *(mlx->map.matrix + (mlx->map.width *
+		(int)floor(new.y) + (int)floor(mlx->player.x)))) ? new.y : mlx->player.y;
 }
 
-static int			fdf_key_hook(int key, t_mlx *mlx)
+int			base_key_hook(int key, t_mlx *mlx)
 {
 	if (key == KEY_ESCAPE)
 		mlxdel(mlx);
@@ -58,6 +60,17 @@ static int			fdf_key_hook(int key, t_mlx *mlx)
 		rotate_player(5.0f / 180.0f * M_PI, mlx);
 	if (key == KEY_RIGHT)
 		rotate_player(-5.0f / 180.0f * M_PI, mlx);
+	if (key == KEY_P)
+		push_mode_stack(init_menu, mlx);
+	return (0);
+}
+
+static int			main_key_hook(int key, t_mlx *mlx)
+{
+	printf("input\n");
+	if (mlx->mode)
+		(mlx->mode->handler)(key, mlx);
+
 	mlx_draw(mlx);
 	return (0);
 }
@@ -69,7 +82,8 @@ void				start(t_mlx *mlx)
 	mlx->player.dir.x = 0.819152f;
 	mlx->player.dir.y = 0.573576f;
 	mlx->player.movespeed = 0.1f;
+	push_mode_stack(init_main_mode, mlx);
 	mlx_draw(mlx);
-	mlx_hook(mlx->window, 2, 5, fdf_key_hook, mlx);
+	mlx_hook(mlx->window, 2, 5, main_key_hook, mlx);
 	mlx_loop(mlx->mlx);
 }

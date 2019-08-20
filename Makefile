@@ -13,7 +13,7 @@
 NAME = wolf3d
 
 SRC_DIR = ./src/
-SRC_FILES = main.c image.c window.c input.c map.c draw.c util.c
+SRC_FILES = main.c image.c window.c input.c map.c draw.c util.c main_menu.c ui.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 INC_DIR = ./includes/
@@ -24,7 +24,7 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 
 FT	= ./libft/
 FT_LNK	= -L $(FT) -l ft

@@ -96,7 +96,7 @@ t_thread_args		*make_targs(t_mlx *mlx, int start)
 	return (args);
 }
 
-void				mlx_draw(t_mlx *mlx)
+void				main_draw(t_mlx *mlx, t_input_stack *in)
 {
 	pthread_t	thread[8];
 	int			i;
@@ -106,7 +106,7 @@ void				mlx_draw(t_mlx *mlx)
 	i = 0;
 	x = 0;
 	clear_image(mlx->image);
-	if (pthread_mutex_init(&g_lock, NULL) != 0)
+	if (in && pthread_mutex_init(&g_lock, NULL) != 0)
 		ft_printf("Mutex initialization failed.\n");
 	next = WIN_WIDTH / 8;
 	while (x < WIN_WIDTH)
@@ -117,7 +117,30 @@ void				mlx_draw(t_mlx *mlx)
 		x = next;
 		next += WIN_WIDTH / 8;
 	}
+	//draw_ui(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image->image, 0, 0);
 	mlx_string_put(mlx->mlx, mlx->window, 10,
 		WIN_HEIGHT - 30, WHITE, "ESC: close");
+}
+
+void				mlx_draw(t_mlx *mlx)
+{
+	t_input_stack	*tail;
+	
+	tail = mlx->mode;
+	while(tail->next)
+		tail = tail->next;
+	while(tail)
+	{
+		(tail->draw)(mlx, tail);
+		tail = tail->prev;
+	}
+}
+
+void        		init_main_mode(t_input_stack *mode)
+{
+	mode->draw = main_draw;
+	mode->handler = base_key_hook;
+	mode->button = NULL;
+	mode->button_count = 0;
 }

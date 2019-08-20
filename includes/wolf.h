@@ -35,6 +35,7 @@
 # define TEXTURE_NB 8
 
 pthread_mutex_t				g_lock;
+typedef struct				s_mlx t_mlx;
 
 typedef struct				s_map
 {
@@ -43,12 +44,29 @@ typedef struct				s_map
 	int	*matrix;
 }							t_map;
 
+typedef struct				s_vect_2
+{
+	int x;
+	int y;
+}							t_vect_2;
+
 typedef struct				s_vect_3
 {
 	double					x;
 	double					y;
 	double					z;
 }							t_vect_3;
+
+typedef struct				s_button
+{
+	char					*label;
+	int						color;
+	bool					selected;
+	t_vect_2				origin;
+	t_vect_2 				size;
+	struct s_button			*next;
+	struct s_button			*prev;
+}							t_button;
 
 typedef struct				s_image
 {
@@ -91,7 +109,22 @@ typedef struct				s_player
 	double					movespeed;
 }							t_player;
 
-typedef struct				s_mlx
+typedef struct				s_input_stack
+{
+	int x;
+	int y;
+	int size_x;
+	int size_y;
+	int key;
+	void (*draw)(t_mlx *mlx, struct s_input_stack *in);
+	int (*handler)(int val, t_mlx *m); 
+	t_button				*button;
+	int						button_count;
+	struct s_input_stack	*next;
+	struct s_input_stack	*prev;
+}							t_input_stack;
+
+struct				s_mlx
 {
 	void					*mlx;
 	void					*window;
@@ -99,7 +132,8 @@ typedef struct				s_mlx
 	t_image					*tex[TEXTURE_NB];
 	t_player				player;
 	t_map					map;
-}							t_mlx;
+	t_input_stack			*mode;
+};
 
 typedef struct				s_thread_args
 {
@@ -124,4 +158,15 @@ int							init_it(char *title, t_mlx *mlx);
 void						map_destroy(t_map *map);
 t_image						*xpm_image(char *xpm, t_mlx *mlx);
 void						draw_column(int x, t_mlx *mlx, t_ray *ray);
+void						draw_ui(t_mlx *mlx);
+int							base_key_hook(int key, t_mlx *mlx);
+void				main_draw(t_mlx *mlx, t_input_stack *in);
+void        		init_main_mode(t_input_stack *mode);
+void				draw_menu(t_mlx *mlx, t_input_stack *in);
+int					menu_mode(int key, t_mlx *mlx);
+void				init_menu(t_input_stack *mode);
+void				remove_mode(t_mlx *mlx);
+void				push_mode_stack(void (*handler)(t_input_stack *mode), t_mlx *mlx);
+void				push_button(t_button *new, char *label, t_vect_2 origin, t_vect_2 size, int color);
+void                print_button(t_button *arr, t_mlx *mlx);
 #endif

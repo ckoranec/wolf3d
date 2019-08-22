@@ -169,4 +169,5 @@ void				remove_mode(t_mlx *mlx);
 void				push_mode_stack(void (*handler)(t_input_stack *mode), t_mlx *mlx);
 void				push_button(t_button *new, char *label, t_vect_2 origin, t_vect_2 size, int color);
 void                print_button(t_button *arr, t_mlx *mlx);
+void				cycle_button(char t, t_mlx *mlx);
 #endif

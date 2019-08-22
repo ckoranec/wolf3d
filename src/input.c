@@ -50,8 +50,6 @@ static void			move_player(t_mlx *mlx, double amount)
 
 int			base_key_hook(int key, t_mlx *mlx)
 {
-	if (key == KEY_ESCAPE)
-		mlxdel(mlx);
 	if (key == KEY_UP)
 		move_player(mlx, mlx->player.movespeed);
 	if (key == KEY_DOWN)
@@ -60,7 +58,7 @@ int			base_key_hook(int key, t_mlx *mlx)
 		rotate_player(5.0f / 180.0f * M_PI, mlx);
 	if (key == KEY_RIGHT)
 		rotate_player(-5.0f / 180.0f * M_PI, mlx);
-	if (key == KEY_P)
+	if (key == KEY_ESCAPE)
 		push_mode_stack(init_menu, mlx);
 	return (0);
 }
@@ -70,7 +68,6 @@ static int			main_key_hook(int key, t_mlx *mlx)
 	printf("input\n");
 	if (mlx->mode)
 		(mlx->mode->handler)(key, mlx);
-
 	mlx_draw(mlx);
 	return (0);
 }

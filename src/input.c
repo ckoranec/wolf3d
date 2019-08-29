@@ -33,15 +33,12 @@ static void			rotate_player(double angle, t_mlx *mlx)
 
 static void			move_player(t_mlx *mlx, double amount)
 {
-	//int			hit;
 	t_vect_3	*pdir;
 	t_vect_3	new;
 
 	pdir = &mlx->player.dir;
 	new.x = mlx->player.x + (amount * pdir->x);
 	new.y = mlx->player.y + (amount * pdir->y);
-	//hit = *(mlx->map.matrix + (mlx->map.width *
-	//	(int)floor(new.y) + (int)floor(new.x)));
 	mlx->player.x = !(BOUNDS && *(mlx->map.matrix + (mlx->map.width *
 		(int)floor(mlx->player.y) + (int)floor(new.x)))) ? new.x : mlx->player.x;
 	mlx->player.y = !(BOUNDS && *(mlx->map.matrix + (mlx->map.width *
@@ -65,15 +62,35 @@ int			base_key_hook(int key, t_mlx *mlx)
 
 static int			main_key_hook(int key, t_mlx *mlx)
 {
-	printf("input\n");
 	if (mlx->mode)
 		(mlx->mode->handler)(key, mlx);
 	mlx_draw(mlx);
 	return (0);
 }
 
+# include <assert.h>
+
+int					mlx_loop_tmp(void *param)
+{
+	assert(false);
+	/*
+	t_mlx *mlx;
+
+	printf("printing\n");
+	mlx = param;
+	if (mlx)
+	{
+		;
+	}
+	//printf("printing\n");
+	//mlx_draw(mlx);
+	return (0);
+	*/
+}
+
 void				start(t_mlx *mlx)
 {
+	mlx_loop_hook(mlx, mlx_loop_tmp, mlx);
 	mlx->player.cam.x = 0.378560f;
 	mlx->player.cam.y = -0.540640f;
 	mlx->player.dir.x = 0.819152f;
@@ -83,4 +100,6 @@ void				start(t_mlx *mlx)
 	mlx_draw(mlx);
 	mlx_hook(mlx->window, 2, 5, main_key_hook, mlx);
 	mlx_loop(mlx->mlx);
+	
+	printf("yo\n");
 }

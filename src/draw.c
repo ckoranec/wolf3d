@@ -74,7 +74,7 @@ void				*draw_it(void *in)
 
 	args = in;
 	pthread_mutex_lock(&g_lock);
-	end = args->start + (WIN_WIDTH / 8);
+	end = args->start + (WIN_WIDTH / THREAD_COUNT);
 	while (args->start < end)
 	{
 		cast(args->start, args->mlx);
@@ -108,14 +108,14 @@ void				main_draw(t_mlx *mlx, t_input_stack *in)
 	clear_image(mlx->image);
 	if (in && pthread_mutex_init(&g_lock, NULL) != 0)
 		ft_printf("Mutex initialization failed.\n");
-	next = WIN_WIDTH / 8;
+	next = WIN_WIDTH / THREAD_COUNT;
 	while (x < WIN_WIDTH)
 	{
 		pthread_create(&thread[i], NULL, draw_it, make_targs(mlx, x));
 		pthread_join(thread[i], NULL);
 		i++;
 		x = next;
-		next += WIN_WIDTH / 8;
+		next += WIN_WIDTH / THREAD_COUNT;
 	}
 	//draw_ui(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image->image, 0, 0);
@@ -127,6 +127,7 @@ void				mlx_draw(t_mlx *mlx)
 {
 	t_input_stack	*tail;
 	
+	printf("draw_call\n");
 	tail = mlx->mode;
 	while(tail->next)
 		tail = tail->next;

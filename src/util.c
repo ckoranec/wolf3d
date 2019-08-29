@@ -26,6 +26,16 @@ int		colors(int i)
 
 	return (rgb[i % 62]);
 }
+/*
+int		get_shadow(int pixel, t_mlx *mlx, t_ray *ray)
+{
+	t_vect_2 player;
+
+	player.x = mlx->player.x;
+	player.y = mlx->player.y;
+
+}
+*/
 
 int		texture_pixel(int x, int y, t_ray *r)
 {

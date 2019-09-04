@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 23:48:36 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/07 20:27:04 by calamber         ###   ########.fr       */
+/*   Updated: 2019/09/04 00:54:03 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,16 @@ static int			main_key_hook(int key, t_mlx *mlx)
 	return (0);
 }
 
-# include <assert.h>
-
 int					mlx_loop_tmp(void *param)
 {
-	assert(false);
-	/*
-	t_mlx *mlx;
-
-	printf("printing\n");
-	mlx = param;
-	if (mlx)
-	{
+	if (param)
 		;
-	}
-	//printf("printing\n");
-	//mlx_draw(mlx);
-	return (0);
-	*/
+	printf("in da loop\n");
+	return (0);	
 }
 
 void				start(t_mlx *mlx)
 {
-	mlx_loop_hook(mlx, mlx_loop_tmp, mlx);
 	mlx->player.cam.x = 0.378560f;
 	mlx->player.cam.y = -0.540640f;
 	mlx->player.dir.x = 0.819152f;
@@ -99,6 +86,7 @@ void				start(t_mlx *mlx)
 	push_mode_stack(init_main_mode, mlx);
 	mlx_draw(mlx);
 	mlx_hook(mlx->window, 2, 5, main_key_hook, mlx);
+	//mlx_loop_hook(mlx, mlx_loop_tmp, mlx);
 	mlx_loop(mlx->mlx);
 	
 	printf("yo\n");

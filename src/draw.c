@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 23:20:55 by calamber          #+#    #+#             */
-/*   Updated: 2019/08/07 20:26:24 by calamber         ###   ########.fr       */
+/*   Updated: 2019/08/30 17:23:09 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void				step_ray(t_ray *ray, t_player *p, t_mlx *mlx)
 		p->y + ray->dist * ray->diry);
 	ray->texture = USE_TEX && ray->hit && ray->hit < 6
 		? mlx->tex[ray->hit] : NULL;
+	printf("texture %p type %d\n", ray->texture, ray->hit);
 }
 
 void				cast(int col, t_mlx *mlx)
@@ -118,9 +119,6 @@ void				main_draw(t_mlx *mlx, t_input_stack *in)
 		next += WIN_WIDTH / THREAD_COUNT;
 	}
 	//draw_ui(mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image->image, 0, 0);
-	mlx_string_put(mlx->mlx, mlx->window, 10,
-		WIN_HEIGHT - 30, WHITE, "ESC: close");
 }
 
 void				mlx_draw(t_mlx *mlx)
@@ -136,6 +134,9 @@ void				mlx_draw(t_mlx *mlx)
 		(tail->draw)(mlx, tail);
 		tail = tail->prev;
 	}
+	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image->image, 0, 0);
+	mlx_string_put(mlx->mlx, mlx->window, 10,
+		WIN_HEIGHT - 30, WHITE, "ESC: close");
 }
 
 void        		init_main_mode(t_input_stack *mode)
